@@ -438,6 +438,10 @@ nav {
 .problem-swiper {
   width: 100%;
   overflow: hidden;
+  /* background-color: #0d3d28; */
+  border-radius: 5px;
+  padding: 10px;
+  /* box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.3); */
 }
 .problem-swiper .swiper-slide {
   background: var(--cream);
@@ -447,6 +451,7 @@ nav {
   overflow: hidden;
   height: auto;
   box-shadow: var(--shadow-card);
+  text-align: center;
 }
 .problem-slide-accent {
   position: absolute;
