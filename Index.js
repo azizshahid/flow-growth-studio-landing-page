@@ -75,18 +75,34 @@ dots.forEach((d) =>
 );
 
 // ── Form ──
-document.getElementById("auditForm").addEventListener("submit", function (e) {
+document.getElementById("auditForm").addEventListener("submit", async function (e) {
   e.preventDefault();
-  const name = document.getElementById("name").value.trim();
+
+  const name    = document.getElementById("name").value.trim();
   const website = document.getElementById("website").value.trim();
-  const email = document.getElementById("email").value.trim();
+  const email   = document.getElementById("email").value.trim();
+
   if (!name || !website || !email) return;
+
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     alert("Please enter a valid email address.");
     return;
   }
-  // TODO: replace with Formspree / EmailJS / backend endpoint
-  console.log("Audit request:", { name, website, email });
-  this.style.display = "none";
-  document.getElementById("successMsg").style.display = "block";
+
+  try {
+    const res = await fetch("https://formspree.io/f/mnjlqjqd", {
+      method: "POST",
+      headers: { "Accept": "application/json" },
+      body: new FormData(this)
+    });
+
+    if (res.ok) {
+      this.style.display = "none";
+      document.getElementById("successMsg").style.display = "block";
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+  } catch (err) {
+    alert("Connection error. Please try again.");
+  }
 });
